@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walentynki</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9e3e3;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #d32f2f;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #tak {
+            background-color: #4caf50;
+            color: white;
+        }
+        #nie {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+        }
+        #message {
+            font-size: 3em;
+            color: #d32f2f;
+            margin-top: 20px;
+            display: none;
+        }
+        .random-text {
+            position: absolute;
+            font-size: 1.5em;
+            color: #d32f2f;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Czy zostaniesz moją Walentynką?</h1>
+    <div class="buttons">
+        <button id="tak">Tak</button>
+        <button id="nie">Nie</button>
+    </div>
+    <div id="message">Kocham Cię!</div>
+
+    <script>
+        const takButton = document.getElementById('tak');
+        const nieButton = document.getElementById('nie');
+        const message = document.getElementById('message');
+        const body = document.body;
+
+        // Obsługa kliknięcia "Tak"
+        takButton.addEventListener('click', () => {
+            message.style.display = 'block';
+        });
+
+        // Funkcja do przemieszczania przycisku "Nie"
+        function moveNieButton() {
+            const x = Math.random() * (window.innerWidth - nieButton.offsetWidth);
+            const y = Math.random() * (window.innerHeight - nieButton.offsetHeight);
+            nieButton.style.left = `${x}px`;
+            nieButton.style.top = `${y}px`;
+        }
+
+        // Przesuń przycisk "Nie" po najechaniu kursorem
+        nieButton.addEventListener('mouseover', moveNieButton);
+
+        // Dodaj serduszka w losowych miejscach
+        function createRandomText() {
+            const text = document.createElement('div');
+            text.className = 'random-text';
+            text.innerText = '❤️';
+            text.style.top = Math.random() * 100 + '%';
+            text.style.left = Math.random() * 100 + '%';
+            body.appendChild(text);
+        }
+
+        setInterval(createRandomText, 500);
+    </script>
+</body>
+</html>
